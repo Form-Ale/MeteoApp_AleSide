@@ -37,7 +37,7 @@
 
                 <Border Grid.Row="2">
                     <Border.Shadow>
-                        <Shadow Brush="Black" Offset="0, -2" Radius="2" Opacity="0.2">
+                        <Shadow Brush="LightGray" Offset="0, -3" Radius="6" Opacity="0.4">
                         </Shadow>
                     </Border.Shadow>
                     <Grid ColumnDefinitions="*,*,*" BackgroundColor="White" Margin="-4,0">
