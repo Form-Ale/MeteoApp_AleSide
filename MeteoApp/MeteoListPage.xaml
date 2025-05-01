@@ -1,0 +1,56 @@
+﻿<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MeteoApp.MeteoListPage">
+    <ContentPage>
+        <ContentPage.Content>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                
+                <VerticalStackLayout Grid.Row="0" VerticalOptions="Center">
+                    <Image Source="{Binding SelectedCityMeteo.Icon}" HeightRequest="100" HorizontalOptions="Center"></Image>
+                
+                    <!-- Info città -->
+                    <Label Text="{Binding SelectedCityMeteo.Name}" FontSize="24" HorizontalOptions="Center" />
+                    <Label Text="{Binding SelectedCityMeteo.Weather}" FontSize="14" HorizontalOptions="Center" />
+                    <Label Text="{Binding SelectedCityMeteo.Temperature}" FontSize="18" HorizontalOptions="Center" />
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                        <Label Text="{Binding SelectedCityMeteo.Min}" FontSize="14" HorizontalOptions="Center" />
+                        <Label Text="{Binding SelectedCityMeteo.Max}" FontSize="14" HorizontalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                
+                <!-- Lista città salvate da Entries -->
+                <CollectionView Grid.Row="1" ItemsSource="{Binding Entries}" SelectionMode="Single" SelectionChanged="OnListItemSelected">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" ColumnDefinitions="*,Auto">
+                                <Label Text="{Binding Name}" VerticalOptions="Center"/>
+                                <Image Source="{Binding Icon}" Grid.Column="1" HeightRequest="24" WidthRequest="24" Margin="10,0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                
+                <Border Grid.Row="2"
+                        Stroke="Gray"
+                        StrokeThickness="3"
+                        HeightRequest="1" />
+
+                <Border Grid.Row="2">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0, -2" Radius="4" Opacity="0.3">
+                        </Shadow>
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="*,*" >
+                        <ImageButton Source="add.png" HeightRequest="48" Clicked="OnItemAdded" Grid.Column="0"/>
+                        <ImageButton Source="map.png" HeightRequest="48" Clicked="OnMapClicked" Grid.Column="1"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ContentPage.Content>
+    </ContentPage>
+</Shell>
