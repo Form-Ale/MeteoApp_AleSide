@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MeteoApp.MeteoListPage">
     <ContentPage>
-        <ContentPage.Content>
+        <ContentPage.Content >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5*"/>
@@ -34,20 +34,16 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                
-                <Border Grid.Row="2"
-                        Stroke="Gray"
-                        StrokeThickness="3"
-                        HeightRequest="1" />
 
                 <Border Grid.Row="2">
                     <Border.Shadow>
-                        <Shadow Brush="Black" Offset="0, -2" Radius="4" Opacity="0.3">
+                        <Shadow Brush="Black" Offset="0, -2" Radius="2" Opacity="0.2">
                         </Shadow>
                     </Border.Shadow>
-                    <Grid ColumnDefinitions="*,*" >
+                    <Grid ColumnDefinitions="*,*,*" BackgroundColor="White" Margin="-4,0">
                         <ImageButton Source="add.png" HeightRequest="48" Clicked="OnItemAdded" Grid.Column="0"/>
-                        <ImageButton Source="map.png" HeightRequest="48" Clicked="OnMapClicked" Grid.Column="1"/>
+                        <ImageButton Source="bell.png" HeightRequest="48" Clicked="OnNotificationClicked" Grid.Column="1" />
+                        <ImageButton Source="map.png" HeightRequest="48" Clicked="OnMapClicked" Grid.Column="2"/>
                     </Grid>
                 </Border>
             </Grid>

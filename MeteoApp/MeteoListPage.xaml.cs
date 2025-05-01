@@ -45,6 +45,11 @@ public partial class MeteoListPage : Shell
         await Navigation.PushAsync(new MapPage());
     }
 
+    private void OnNotificationClicked(object sender, EventArgs e)
+    {
+        ShowPrompt("Notification handeling");
+    }
+
     private async Task ShowPrompt(string message)
     {
         await DisplayAlert("To be implemented", message, "OK");
