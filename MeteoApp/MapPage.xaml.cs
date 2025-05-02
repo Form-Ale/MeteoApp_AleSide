@@ -1,13 +1,49 @@
-
+using MeteoApp.Models;
+using System.Web;
 
 namespace MeteoApp;
 
 public partial class MapPage : ContentPage
 {
-    public MapPage() 
-    { 
+    public MapPage()
+    {
         InitializeComponent();
-        var url = "https://embed.windy.com/embed2.html?lat=46.2&lon=9.0&detailLat=46.2&detailLon=9.0&width=650&height=450&zoom=8&level=surface&overlay=wind&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1";
-        WindyMap.Source = url;
+
+        // Carica l'HTML locale
+        var htmlPath = Path.Combine(FileSystem.AppDataDirectory, "map.html");
+        if (!File.Exists(htmlPath))
+        {
+            using var stream = FileSystem.OpenAppPackageFileAsync("map.html").Result;
+            using var reader = new StreamReader(stream);
+            var content = reader.ReadToEnd();
+            File.WriteAllText(htmlPath, content);
+        }
+
+        MapWebView.Source = new UrlWebViewSource { Url = $"file://{htmlPath}" };
+    }
+
+    private async void OnNavigating(object sender, WebNavigatingEventArgs e)
+    {
+        if (e.Url.StartsWith("js2csharp://"))
+        {
+            e.Cancel = true;
+            var payload = Uri.UnescapeDataString(e.Url.Replace("js2csharp://", ""));
+            var query = HttpUtility.ParseQueryString("?" + payload);
+
+            if (double.TryParse(query.Get("lat"), out double lat) && double.TryParse(query.Get("lon"), out double lon))
+            {
+                var meteo = await GPSOperations.GetMeteoDataAsync(lat, lon);
+                if (meteo != null)
+                {
+                    await DisplayAlert("Meteo cliccato",
+                        $"{meteo.Name}, {meteo.Sys?.Country}\n" +
+                        $"{meteo.Main.Temp}°C\n" +
+                        $"{meteo.Weather?.FirstOrDefault()?.Description}\n" +
+                        $"Vento: {meteo.Wind?.Speed} m/s", "OK");
+                }
+            }
+        }
     }
 }
+
+

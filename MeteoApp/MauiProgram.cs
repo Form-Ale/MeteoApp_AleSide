@@ -14,7 +14,12 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
-			.UseMauiMaps();
+			.ConfigureMauiHandlers(handlers => 
+			{
+#if MACCATALYST
+				handlers.AddHandler(typeof(WebView), typeof(MeteoApp.CustomWebViewHandler));
+#endif
+			});
 
 #if DEBUG
 		builder.Logging.AddDebug();

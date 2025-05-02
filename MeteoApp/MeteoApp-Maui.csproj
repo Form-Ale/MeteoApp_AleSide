@@ -70,7 +70,6 @@
 	  <None Remove="Plugin.LocalNotification" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Models\" />
 	  <Folder Include="Services\" />
 	  <Folder Include="View\" />
 	</ItemGroup>

@@ -37,6 +37,8 @@ namespace MeteoApp
 
         public MeteoListViewModel()
         {
+            var location = GPSOperations.GetCurrentLocationAsync();
+            
             SelectedCityMeteo = new Entry
             {
                 Id = 1,
